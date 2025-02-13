@@ -1,0 +1,70 @@
+
+server:
+  port: 8080  # The port on which the server will listen for requests
+spring:
+  application:
+    name: "accounts"
+  profiles:
+    active: "prod"
+  datasource:
+    url: jdbc:mysql://localhost:3307/accountsdb  # JDBC URL to connect to an in-memory H2 database named 'testdb'
+#    driverClassName: org.h2.Driver  # The driver class name for H2 database
+    username: root  # The username for the database connection
+    password: root # The password for the database connection (empty in this case)
+  jpa:
+    show-sql: true  # Enables logging of SQL statements executed by Hibernate
+  sql:
+    init:
+      mode: always
+  config:
+    import: "optional:configserver:http://localhost:8071/"
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
+  endpoint:
+    shutdown:
+      access: unrestricted
+    health:
+      probes:
+        enabled: true
+  info:
+    env:
+      enabled: true
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    fetchRegistry: true
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: http://localhost:8091/eureka/
+
+info:
+  app:
+    name: "accounts"
+    description: "Madhouse Bank Accounts Application"
+    version: "1.0.0"
+
+logging:
+  level:
+    com:
+      prashant:
+        accounts: DEBUG
+#spring.datasource.url=jdbc:h2:mem:testdb
+#spring.datasource.driver-class-name=org.h2.Driver
+#spring.datasource.username=sa
+#spring.datasource.password=
+#spring.h2.console.enabled=true
+#spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+#spring.jpa.hibernate.ddl-auto=update
+#spring.jpa.show-sql=true

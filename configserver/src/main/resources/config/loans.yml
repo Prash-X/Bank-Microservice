@@ -1,0 +1,11 @@
+build:
+  version: "3.0"
+
+accounts:
+  message: "Welcome to MadHouse Bank accounts related local APIs"
+  contactDetails:
+    name: "Prashant"
+    email: "p@g.com"
+  onCallSupport:
+    - 99999999
+    - 67676767

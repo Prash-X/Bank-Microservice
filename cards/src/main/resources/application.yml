@@ -1,0 +1,61 @@
+server:
+  port: 9000
+
+spring:
+  application:
+    name: "cards"
+  profiles:
+    active: "prod"
+  datasource:
+    url: jdbc:mysql://localhost:3309/cardsdb  # JDBC URL to connect to an in-memory H2 database named 'testdb'
+    #    driverClassName: org.h2.Driver  # The driver class name for H2 database
+    username: root  # The username for the database connection
+    password: root # The password for the database connection (empty in this case)
+  jpa:
+    show-sql: true  # Enables logging of SQL statements executed by Hibernate
+  sql:
+    init:
+      mode: always
+  config:
+    import: "optional:configserver:http://localhost:8071/"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
+  endpoint:
+    shutdown:
+      access: unrestricted
+    health:
+      probes:
+        enabled: true
+  info:
+    env:
+      enabled: true
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    fetchRegistry: true
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: http://localhost:8091/eureka/
+
+info:
+  app:
+    name: "cards"
+    description: "Eazy Bank Cards Application"
+    version: "1.0.0"
+
+logging:
+  level:
+    com:
+      prashant:
+        cards: DEBUG

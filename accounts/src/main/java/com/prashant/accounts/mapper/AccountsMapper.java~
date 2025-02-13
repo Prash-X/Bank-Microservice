@@ -1,0 +1,5 @@
+package com.prashant.accounts.mapper;
+
+public class AccountsMapper {
+    
+}
